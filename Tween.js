@@ -1,538 +1,914 @@
-var DOT_SIZE = 20;
-var X_START_POS = -8 * DOT_SIZE;
-var Y_START_POS = -8 * DOT_SIZE;
-var Z_START_POS = -4.5 * DOT_SIZE;
+bplist00�_WebMainResource�	
+_WebResourceTextEncodingName^WebResourceURL_WebResourceFrameName_WebResourceData_WebResourceMIMETypeUUTF-8_8https://cdn.rawgit.com/sole/tween.js/master/src/Tween.jsPO<�<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">/**
+ * Tween.js - Licensed under the MIT license
+ * https://github.com/tweenjs/tween.js
+ * ----------------------------------------------
+ *
+ * See https://github.com/tweenjs/tween.js/graphs/contributors for the full list of contributors.
+ * Thank you all, you're awesome!
+ */
 
-// ‥‥‥‥‥‥‥‥‥‥‥‥‥□□□
-// ‥‥‥‥‥‥〓〓〓〓〓‥‥□□□
-// ‥‥‥‥‥〓〓〓〓〓〓〓〓〓□□
-// ‥‥‥‥‥■■■□□■□‥■■■
-// ‥‥‥‥■□■□□□■□□■■■
-// ‥‥‥‥■□■■□□□■□□□■
-// ‥‥‥‥■■□□□□■■■■■‥
-// ‥‥‥‥‥‥□□□□□□□■‥‥
-// ‥‥■■■■■〓■■■〓■‥‥‥
-// ‥■■■■■■■〓■■■〓‥‥■
-// □□■■■■■■〓〓〓〓〓‥‥■
-// □□□‥〓〓■〓〓□〓〓□〓■■
-// ‥□‥■〓〓〓〓〓〓〓〓〓〓■■
-// ‥‥■■■〓〓〓〓〓〓〓〓〓■■
-// ‥■■■〓〓〓〓〓〓〓‥‥‥‥‥
-// ‥■‥‥〓〓〓〓‥‥‥‥‥‥‥‥
-var dataSet = [
-    [
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BG","BG","BG",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BG","BG","BG",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BG","BG","BG",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","RD","RD","RD",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","RD","RD","RD",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","RD","RD","RD","RD",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","RD","RD","RD","RD","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","RD","RD","RD","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BR",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BR",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BR","BR",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BR","BR",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BR","BR",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK"
-    ],
-    [
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BG","BG","BG",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BG","BG","BG",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BG","BG","BG",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","RD","RD","RD",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","RD","RD","RD",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","RD","RD","RD","RD",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","RD","RD","RD","RD","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","RD","RD","RD","RD","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","RD","RD","RD","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BR",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BR",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BL","BL","BL","BL","BL","BL","BR","BR",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BL","BL","BL","BL","BL","BL","BR","BR",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BL","BL","BL","BL","BL","BL","BR","BR",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK"
-    ],
-    [
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","RD","RD","RD","BK","BK","BK","BG","BK","BK",
-    "BK","BK","BK","BK","BK","BK","RD","RD","RD","RD","RD","RD","RD","BG","BG","BG",
-    "BK","BK","BK","BK","BK","BR","BR","BR","BK","BK","BK","BK","BK","RD","RD","RD",
-    "BK","BK","BK","BK","BR","BG","BK","BK","BK","BK","BK","BK","BK","RD","RD","RD",
-    "BK","BK","BK","BK","BR","BG","BK","BK","BK","BK","BK","BR","RD","RD","RD","RD",
-    "BK","BK","BK","BK","BR","BR","BK","BK","BK","BK","BR","BR","BR","BR","RD","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","RD","RD","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BL","BL","RD","RD","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BL","RD","RD","RD","BK","BK","BR",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BL","BL","BL","BL","BL","BK","BK","BR",
-    "BK","BK","BK","BK","BK","BL","BL","BL","BL","BL","BL","BL","BL","BL","BR","BR",
-    "BK","BK","BK","BK","BK","BL","BL","BL","BL","BL","BL","BL","BL","BL","BR","BR",
-    "BK","BK","BK","BK","BK","BL","BL","BL","BL","BL","BL","BL","BL","BL","BR","BR",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK"
-    ],
-    [
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","RD","RD","RD","RD","RD","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","RD","RD","RD","RD","RD","RD","RD","RD","RD","BK","BK",
-    "BK","BK","BK","BK","BK","BR","BR","BR","BG","BG","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BR","BG","BR","BG","BG","BG","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BR","BG","BR","BR","BG","BG","BG","BR","BG","BG","BK","BK",
-    "BK","BK","BK","BK","BR","BR","BG","BG","BG","BG","BR","BR","BR","BR","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BG","BG","BG","BG","BG","BG","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","RD","RD","RD","RD","BL","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","RD","RD","RD","RD","RD","RD","BL","BK","BK","BR",
-    "BK","BK","BK","BK","BK","BK","RD","RD","RD","BL","BL","BL","BL","BK","BK","BR",
-    "BK","BK","BK","BK","BK","BL","RD","BL","BL","BL","BL","BL","BL","BL","BR","BR",
-    "BK","BK","BK","BK","BK","BL","BL","BL","BL","BL","BL","BL","BL","BL","BR","BR",
-    "BK","BK","BK","BK","BK","BL","BL","BL","BL","BL","BL","BL","BL","BL","BR","BR",
-    "BK","BK","BK","BK","BK","BK","BL","BL","BL","BL","BL","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK"
-    ],
-    [
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","RD","RD","RD","RD","RD","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","RD","RD","RD","RD","RD","RD","RD","RD","RD","BK","BK",
-    "BK","BK","BK","BK","BK","BR","BR","BR","BG","BG","BR","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BR","BG","BR","BG","BG","BG","BR","BG","BG","BK","BK","BK",
-    "BK","BK","BK","BK","BR","BG","BR","BR","BG","BG","BG","BR","BG","BG","BG","BK",
-    "BK","BK","BK","BK","BR","BR","BG","BG","BG","BG","BR","BR","BR","BR","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BG","BG","BG","BG","BG","BG","BG","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","RD","BL","RD","RD","RD","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","RD","RD","BL","RD","RD","RD","BK","BK","BK","BR",
-    "BK","BK","BK","BK","BK","BK","RD","RD","BL","BL","BL","BL","BL","BK","BK","BR",
-    "BK","BK","BK","BK","BK","BL","RD","BL","BL","BL","BL","BL","YL","BK","BR","BR",
-    "BK","BK","BK","BR","BK","BL","BL","BL","BL","BL","BL","BL","BL","BK","BR","BR",
-    "BK","BK","BR","BR","BR","BL","BL","BL","BL","BL","BL","BL","BL","BK","BR","BR",
-    "BK","BR","BR","BR","BK","BK","BL","BL","BL","BL","BL","BK","BK","BK","BK","BK",
-    "BK","BR","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK"
-    ],
-    [
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","RD","RD","RD","RD","RD","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","RD","RD","RD","RD","RD","RD","RD","RD","RD","BK","BK",
-    "BK","BK","BK","BK","BK","BR","BR","BR","BG","BG","BR","BG","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BR","BG","BR","BG","BG","BG","BR","BG","BG","BK","BK","BK",
-    "BK","BK","BK","BK","BR","BG","BR","BR","BG","BG","BG","BR","BG","BG","BG","BK",
-    "BK","BK","BK","BK","BR","BR","BG","BG","BG","BG","BR","BR","BR","BR","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BG","BG","BG","BG","BG","BG","BG","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BL","RD","BL","RD","RD","RD","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BL","RD","RD","BL","RD","RD","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BL","RD","RD","BL","BL","BL","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BL","RD","BL","BL","BL","BL","BL","BK","BK","BK","BK",
-    "BK","BK","BK","BR","BK","BL","BL","BL","BL","BL","BL","BL","BK","BK","BK","BK",
-    "BK","BK","BR","BR","BR","BL","BL","BL","BL","BL","BL","BL","BK","BK","BK","BK",
-    "BK","BR","BR","BR","BL","BL","BL","BL","BL","BL","BL","BK","BK","BK","BK","BK",
-    "BK","BR","BK","BK","BL","BL","BL","BL","BK","BK","BK","BK","BK","BK","BK","BK"
-    ],
-    [
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","RD","RD","RD","RD","RD","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","RD","RD","RD","RD","RD","RD","RD","RD","RD","BK","BK",
-    "BK","BK","BK","BK","BK","BR","BR","BR","BG","BG","BR","BG","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BR","BG","BR","BG","BG","BG","BR","BG","BG","BK","BK","BK",
-    "BK","BK","BK","BK","BR","BG","BR","BR","BG","BG","BG","BR","BG","BG","BG","BK",
-    "BK","BK","BK","BK","BR","BR","BG","BG","BG","BG","BR","BR","BR","BR","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BG","BG","BG","BG","BG","BG","BG","BK","BK","BK",
-    "BK","BK","RD","RD","RD","RD","RD","BL","RD","RD","RD","BK","BK","BK","BK","BK",
-    "BK","RD","RD","RD","RD","RD","RD","RD","BL","RD","RD","BK","BK","BK","BK","BK",
-    "BG","BG","RD","RD","RD","RD","RD","RD","BL","BL","BL","BK","BK","BK","BK","BK",
-    "BG","BG","BG","BK","BK","BK","RD","BL","BL","BL","BL","BL","BK","BK","BK","BK",
-    "BK","BG","BK","BR","BK","BK","BL","BL","BL","BL","BL","BL","BK","BK","BK","BK",
-    "BK","BK","BR","BR","BR","BL","BL","BL","BL","BL","BL","BL","BK","BK","BK","BK",
-    "BK","BR","BR","BR","BL","BL","BL","BL","BL","BL","BL","BK","BK","BK","BK","BK",
-    "BK","BR","BK","BK","BL","BL","BL","BL","BK","BK","BK","BK","BK","BK","BK","BK"
-    ],
-    [
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","RD","RD","RD","RD","RD","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","RD","RD","RD","RD","RD","RD","RD","RD","RD","BK","BK",
-    "BK","BK","BK","BK","BK","BR","BR","BR","BG","BG","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BR","BG","BR","BG","BG","BG","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BR","BG","BR","BR","BG","BG","BG","BR","BG","BG","BK","BK",
-    "BK","BK","BK","BK","BR","BR","BG","BG","BG","BG","BR","BR","BR","BR","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BG","BG","BG","BG","BG","BG","BK","BK","BK",
-    "BK","BK","RD","RD","RD","RD","RD","BL","RD","RD","BK","BK","BK","BK","BK","BK",
-    "BK","RD","RD","RD","RD","RD","RD","RD","BL","RD","BK","BK","BK","BK","BK","BK",
-    "BG","BG","RD","RD","RD","RD","RD","RD","BL","BL","BK","BK","BK","BK","BK","BK",
-    "BG","BG","BG","BK","BK","BK","RD","BL","BL","YL","BK","BK","BK","BK","BK","BK",
-    "BK","BG","BK","BR","BK","BK","BL","BL","BL","BL","BL","BK","BK","BK","BK","BK",
-    "BK","BK","BR","BR","BR","BL","BL","BL","BL","BL","BL","BK","BK","BK","BK","BK",
-    "BK","BR","BR","BR","BL","BL","BL","BL","BL","BL","BL","BK","BK","BK","BK","BK",
-    "BK","BR","BK","BK","BL","BL","BL","BL","BK","BK","BK","BK","BK","BK","BK","BK"
-    ],
-    [
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","RD","RD","RD","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","RD","RD","RD","RD","RD","RD","RD","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BR","BR","BR","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BR","BG","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BR","BG","BK","BK","BK","BK","BK","BR","BK","BK","BK","BK",
-    "BK","BK","BK","BK","BR","BR","BK","BK","BK","BK","BR","BR","BR","BK","BK","BK",
-    "BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BK","RD","RD","RD","RD","RD","BL","BK","BK","BK","BK","BK","BK","BK","BK",
-    "BK","RD","RD","RD","RD","RD","RD","RD","BL","BK","BK","BK","BK","BK","BK","BK",
-    "BG","BG","RD","RD","RD","RD","RD","RD","BL","BK","BK","BK","BK","BK","BK","BK",
-    "BG","BG","BG","BK","BK","BK","BK","BL","BL","BK","BK","BK","BK","BK","BK","BK",
-    "BK","BG","BK","BR","BK","BK","BL","BL","BL","BL","BK","BK","BK","BK","BK","BK",
-    "BK","BK","BR","BR","BR","BK","BL","BL","BL","BL","BK","BK","BK","BK","BK","BK",
-    "BK","BR","BR","BR","BK","BK","BL","BL","BL","BL","BK","BK","BK","BK","BK","BK",
-    "BK","BR","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK","BK"
-    ]
-];
+var TWEEN = TWEEN || (function () {
 
-function getRgbColor(colorType)
-{
-    var colorHash = {
-        "BK":"#000000", // black
-        "WH":"#FFFFFF", // white
-        "BG":"#FFCCCC", // beige
-        "BR":"#800000", // brown
-        "RD":"#FF0000", // red
-        "YL":"#FFFF00", // yellow
-        "GN":"#00FF00", // green
-        "WT":"#00FFFF", // water
-        "BL":"#0000FF", // blue
-        "PR":"#800080"  // purple
-    };
-    return colorHash[colorType];
+	var _tweens = {};
+	var _tweensAddedDuringUpdate = {};
+	var _nextId = 0;
+
+	return {
+
+		getAll: function () {
+
+			return Object.keys(_tweens).map(function (tweenId) {
+				return _tweens[tweenId];
+			});
+
+		},
+
+		removeAll: function () {
+
+			_tweens = {};
+
+		},
+
+		add: function (tween) {
+
+			_tweens[tween.getId()] = tween;
+			_tweensAddedDuringUpdate[tween.getId()] = tween;
+
+		},
+
+		remove: function (tween) {
+
+			delete _tweens[tween.getId()];
+			delete _tweensAddedDuringUpdate[tween.getId()];
+
+		},
+
+		update: function (time, preserve) {
+
+			var tweenIds = Object.keys(_tweens);
+
+			if (tweenIds.length === 0) {
+				return false;
+			}
+
+			time = time !== undefined ? time : TWEEN.now();
+
+			// Tweens are updated in "batches". If you add a new tween during an update, then the
+			// new tween will be updated in the next batch.
+			// If you remove a tween during an update, it will normally still be updated. However,
+			// if the removed tween was added during the current batch, then it will not be updated.
+			while (tweenIds.length &gt; 0) {
+				_tweensAddedDuringUpdate = {};
+
+				for (var i = 0; i &lt; tweenIds.length; i++) {
+					if (_tweens[tweenIds[i]].update(time) === false &amp;&amp; !preserve) {
+						delete _tweens[tweenIds[i]];
+					}
+				}
+
+				tweenIds = Object.keys(_tweensAddedDuringUpdate);
+			}
+
+			return true;
+
+		},
+
+		nextId: function () {
+			return _nextId++;
+		}
+	};
+
+})();
+
+
+// Include a performance.now polyfill.
+// In node.js, use process.hrtime.
+if (typeof (window) === 'undefined' &amp;&amp; typeof (process) !== 'undefined') {
+	TWEEN.now = function () {
+		var time = process.hrtime();
+
+		// Convert [seconds, nanoseconds] to milliseconds.
+		return time[0] * 1000 + time[1] / 1000000;
+	};
 }
-
-var container, stats;
-var camera, controls, scene, renderer;
-var mesh, plane;
-
-var ID = 1;
-var list = [];
-
-var targetRotation = 0;
-//This needs to be declared separately, currently not sure why but cube does not appear otherwise
-var targetRotationOnMouseDown = 0;
-var rotationSpeed = 0.05;
-
-var mouseX, mouseY, mouseXOnMouseDown, mouseYOnMouseDown = 0;
-
-var windowHalfX = window.innerWidth / 2;
-var windowHalfY = window.innerHeight / 2;
-
-var ROT_SPEED = 200;
-var group_rot = 0;
-var group;
-var theta = 0;
-var L_SIZE = 3;
-var M_SIZE = 2;
-var S_SIZE = 1;
-var SIZE = 20;
-
-init();
-animate();
-
-function init() {
-    container = document.createElement('div');
-    document.body.appendChild(container);
-
-    //The smaller the first number is, the closer the cube appears
-    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
-    //The height of the camera in comparison to the scene
-    camera.position.x = -100;
-    camera.position.y = 250;
-    //The zoom level of the camera
-    camera.position.z = 500;
-
-    //The mouse controls that allow for dragging of cube closer or further away visually
-    controls = new THREE.TrackballControls(camera);
-    controls.rotateSpeed = 1.0;
-    controls.zoomSpeed = 1.0;
-    controls.panSpeed = 0.8;
-    controls.noZoom = false;
-    controls.noPan = false;
-    controls.staticMoving = true;
-    controls.dynamicDampingFactor = 0.3;
-    controls.addEventListener('change', render, false);
-
-    //Create the scene
-    scene = new THREE.Scene();
-    group = new THREE.Object3D();
-    scene.add(group);
-
-    var i, j;
-    var x, y, z;
-    var meshArray = [];
-    var color;
-    var geometry = new THREE.CubeGeometry(DOT_SIZE * 0.8, DOT_SIZE * 0.8, DOT_SIZE * 0.8);
-    for (j = 0; j < dataSet.length; j++) {
-        for (i = 0; i < dataSet[j].length; i++) {
-            x = (i % 16) * DOT_SIZE + X_START_POS;
-            y = (16 - Math.floor(i / 16)) * DOT_SIZE + Y_START_POS;
-            z = j * DOT_SIZE + Z_START_POS;
-            color = getRgbColor(dataSet[j][i]);
-
-            if (dataSet[j][i] != "BK") {
-                var material = new THREE.MeshLambertMaterial({
-                    color: color
-                });
-                meshArray[i] = new THREE.Mesh(geometry, material);
-                meshArray[i].position.x = x - 0;
-                meshArray[i].position.y = y;
-                meshArray[i].position.z = z;
-                //scene.add(meshArray[i]);
-                group.add(meshArray[i]);
-                list.push(meshArray[i]);
-            }
-        }
-    }
-
-    var light = new THREE.DirectionalLight(0xffffff, 1.5);
-    light.position.set(1, 1, 1).normalize();
-    scene.add(light);
-
-    var light2 = new THREE.DirectionalLight(0xffffff);
-    light2.position.set(-1, -1, -1).normalize();
-    scene.add(light2);
-    
-    // create and start the renderer; choose antialias setting.
-    if (isWebgl())
-        renderer = new THREE.WebGLRenderer({
-            antialias: true
-        });
-    else
-        renderer = new THREE.CanvasRenderer();
-
-    renderer.setSize(window.innerWidth - 5, window.innerHeight - 5);
-    container.appendChild(renderer.domElement);
-
-    document.addEventListener('mousedown', onDocumentMouseDown, false);
-    document.addEventListener('touchstart', onDocumentTouchStart, false);
-    document.addEventListener('touchmove', onDocumentTouchMove, false);
-
-    window.addEventListener('resize', onWindowResize, false);
-
-    for (i = 0; i < list.length; i++) {
-        new TWEEN.Tween(list[i].scale).to({
-            x: 1,
-            y: 1,
-            z: 1
-        }, 1000)
-            .easing(TWEEN.Easing.Back.Out).start();
-    }
-
-    setInterval(changeID, 3000);
+// In a browser, use window.performance.now if it is available.
+else if (typeof (window) !== 'undefined' &amp;&amp;
+         window.performance !== undefined &amp;&amp;
+		 window.performance.now !== undefined) {
+	// This must be bound, because directly assigning this function
+	// leads to an invocation exception in Chrome.
+	TWEEN.now = window.performance.now.bind(window.performance);
 }
-
-function onWindowResize() {
-    windowHalfX = window.innerWidth / 2;
-    windowHalfY = window.innerHeight / 2;
-
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    controls.handleResize();
-    render();
+// Use Date.now if it is available.
+else if (Date.now !== undefined) {
+	TWEEN.now = Date.now;
 }
-
-function onDocumentMouseDown(event) {
-    event.preventDefault();
-
-    document.addEventListener('mousemove', onDocumentMouseMove, false);
-    document.addEventListener('mouseup', onDocumentMouseUp, false);
-    document.addEventListener('mouseout', onDocumentMouseOut, false);
-
-    mouseXOnMouseDown = event.clientX - windowHalfX;
-    targetRotationOnMouseDown = targetRotation;
-}
-
-function onDocumentMouseMove(event) {
-    mouseX = event.clientX - windowHalfX;
-    mouseY = event.clientY - windowHalfY;
-}
-
-function onDocumentMouseUp(event) {
-    document.removeEventListener('mousemove', onDocumentMouseMove, false);
-    document.removeEventListener('mouseup', onDocumentMouseUp, false);
-    document.removeEventListener('mouseout', onDocumentMouseOut, false);
-}
-
-function onDocumentMouseOut(event) {
-    //To get rid of redundant code, call function that does same thing above
-    onDocumentMouseUp(event);
-}
-
-function onDocumentTouchStart(event) {
-    if (event.touches.length === 1) {
-        event.preventDefault();
-
-        mouseXOnMouseDown = event.touches[0].pageX - windowHalfX;
-        targetRotationOnMouseDown = targetRotation;
-    }
-}
-
-function onDocumentTouchMove(event) {
-    if (event.touches.length === 1) {
-        event.preventDefault();
-
-        mouseX = event.touches[0].pageX - windowHalfX;
-        //The rotation of the cube on its' x-axis
-        targetRotation = targetRotationOnMouseDown + (mouseX - mouseXOnMouseDown) * rotationSpeed;
-    }
+// Otherwise, use 'new Date().getTime()'.
+else {
+	TWEEN.now = function () {
+		return new Date().getTime();
+	};
 }
 
 
-/**************THIS BLOCK IS NECESSARY -> DRAWS DEBUG AXES********************/
-var debugaxis = function (axisLength) {
-    //Shorten the vertex function
-    function v(x, y, z) {
-        return new THREE.Vector3(x, y, z);
-    }
+function assign(target, source) {
+	var keys = Object.keys(source);
+	var length = keys.length;
 
-    //Create axis (point1, point2, colour)
+	for (var i = 0; i &lt; length; i += 1) {
+		target[keys[i]] = source[keys[i]];
+	}
 
-    function createAxis(p1, p2, color) {
-        var line, lineGeometry = new THREE.Geometry(),
-            lineMat = new THREE.LineBasicMaterial({
-                color: color,
-                lineWidth: 1
-            });
-        lineGeometry.vertices.push(p1, p2);
-        line = new THREE.Line(lineGeometry, lineMat);
-        scene.add(line);
-    }
+	return target;
+}
 
-    createAxis(v(-axisLength, 0, 0), v(axisLength, 0, 0), 0xFF0000);
-    createAxis(v(0, -axisLength, 0), v(0, axisLength, 0), 0x00FF00);
-    createAxis(v(0, 0, -axisLength), v(0, 0, axisLength), 0x0000FF);
+
+TWEEN.Tween = function (object) {
+
+	this._object = object;
+	this._valuesStart = {};
+	this._valuesEnd = {};
+	this._valuesStartRepeat = {};
+	this._duration = 1000;
+	this._repeat = 0;
+	this._repeatDelayTime = undefined;
+	this._yoyo = false;
+	this._isPlaying = false;
+	this._reversed = false;
+	this._delayTime = 0;
+	this._startTime = null;
+	this._easingFunction = TWEEN.Easing.Linear.None;
+	this._interpolationFunction = TWEEN.Interpolation.Linear;
+	this._chainedTweens = [];
+	this._onStartCallback = null;
+	this._onStartCallbackFired = false;
+	this._onUpdateCallback = null;
+	this._onCompleteCallback = null;
+	this._onStopCallback = null;
+	this._id = TWEEN.nextId();
+
 };
 
-//To use enter the axis length
-//debugaxis(400);
-/**************************************************************************************/
+TWEEN.Tween.prototype = assign(Object.create(Object.prototype), {
+	getId: function getId() {
+		return this._id;
+	},
 
-function isWebgl() {
-    try {
-        return !!window.WebGLRenderingContext && !! document.createElement('canvas').getContext('experimental-webgl');
-    } catch (e) {
-        return false;
-    }
-}
+	to: function to(properties, duration) {
 
-function animate() {
-    requestAnimationFrame(animate);
-    controls.update();
-    render();
-}
+		this._valuesEnd = properties;
 
-function render() {
-    TWEEN.update();
-    group_rot += 0.0001 * ROT_SPEED;
-    group.rotation.x = group_rot;
-    group.rotation.y = group_rot;
-    group.rotation.z = group_rot;
-    renderer.render(scene, camera);
-}
+		if (duration !== undefined) {
+			this._duration = duration;
+		}
 
-function changeID() {
+		return this;
 
-    switch (ID) {
-    case 1:
-        changeFormation1();
-        break;
-    case 2:
-        changeFormation2();
-        break;
-    case 3:
-        changeFormation3();
-        break;
-    default:
-        changeFormation1();
-        break;
-    }
+	},
 
-    ID++;
-    if (ID > 3) {
-        ID = 1;
-    }
-}
+	start: function start(time) {
 
-//Random
-function changeFormation1() {
-    for (var i = 0; i < list.length; i++) {
-        var rot = 360 / list.length * i;
-        var vx = Math.random() * 600 - 300;
-        var vy = Math.random() * 600 - 300;
-        var vz = Math.random() * 600 - 300;
+		TWEEN.add(this);
 
-        new TWEEN.Tween(list[i].position).to({
-            x: vx,
-            y: vy,
-            z: vz
-        }, 1000)
-            .easing(TWEEN.Easing.Exponential.InOut).start();
+		this._isPlaying = true;
 
-        new TWEEN.Tween(list[i].rotation).to({
-            x: 0,
-            y: rot,
-            z: 0
-        }, 1000)
-            .easing(TWEEN.Easing.Cubic.InOut).start();
-    }
-}
+		this._onStartCallbackFired = false;
 
-//Cube
-function changeFormation2() {
-    var i, j, k;
-    var x, y, z;
-    k = 0;
-    for (j = 0; j < dataSet.length; j++) {
-        for (i = 0; i < dataSet[j].length; i++) {
-            x = (i % 16) * DOT_SIZE + X_START_POS;
-            y = (16 - Math.floor(i / 16)) * DOT_SIZE + Y_START_POS;
-            z = j * DOT_SIZE + Z_START_POS;
-            if (dataSet[j][i] != "BK") {
-                new TWEEN.Tween(list[k].position).to({
-                    x: x,
-                    y: y,
-                    z: z
-                }, 1000)
-                    .easing(TWEEN.Easing.Exponential.InOut).start();
-        
-                new TWEEN.Tween(list[k].rotation).to({
-                    x: 0,
-                    y: 0,
-                    z: 0
-                }, 1000)
-                    .easing(TWEEN.Easing.Cubic.InOut).start();
-                k++;
-            }
-        }
-    }
-}
+		this._startTime = time !== undefined ? time : TWEEN.now();
+		this._startTime += this._delayTime;
 
-//Spiral
-function changeFormation3() {
-    for (var i = 0; i < list.length; i++) {
-        var rot = 25 * i;
-        var vx = 150 * Math.sin(rot * Math.PI / 180);
-        var vy = 1 * i - 400;
-        var vz = 150 * Math.cos(rot * Math.PI / 180);
+		for (var property in this._valuesEnd) {
 
-        new TWEEN.Tween(list[i].position).to({
-            x: vx,
-            y: vy,
-            z: vz
-        }, 1000)
-            .easing(TWEEN.Easing.Exponential.InOut).start();
+			// Check if an Array was provided as property value
+			if (this._valuesEnd[property] instanceof Array) {
 
-        new TWEEN.Tween(list[i].rotation).to({
-            x: 0,
-            y: rot,
-            z: 0
-        }, 1000)
-            .easing(TWEEN.Easing.Cubic.InOut).start();
-    }
-}
+				if (this._valuesEnd[property].length === 0) {
+					continue;
+				}
+
+				// Create a local copy of the Array with the start value at the front
+				this._valuesEnd[property] = [this._object[property]].concat(this._valuesEnd[property]);
+
+			}
+
+			// If `to()` specifies a property that doesn't exist in the source object,
+			// we should not set that property in the object
+			if (this._object[property] === undefined) {
+				continue;
+			}
+
+			// Save the starting value.
+			this._valuesStart[property] = this._object[property];
+
+			if ((this._valuesStart[property] instanceof Array) === false) {
+				this._valuesStart[property] *= 1.0; // Ensures we're using numbers, not strings
+			}
+
+			this._valuesStartRepeat[property] = this._valuesStart[property] || 0;
+
+		}
+
+		return this;
+
+	},
+
+	stop: function stop() {
+
+		if (!this._isPlaying) {
+			return this;
+		}
+
+		TWEEN.remove(this);
+		this._isPlaying = false;
+
+		if (this._onStopCallback !== null) {
+			this._onStopCallback.call(this._object, this._object);
+		}
+
+		this.stopChainedTweens();
+		return this;
+
+	},
+
+	end: function end() {
+
+		this.update(this._startTime + this._duration);
+		return this;
+
+	},
+
+	stopChainedTweens: function stopChainedTweens() {
+
+		for (var i = 0, numChainedTweens = this._chainedTweens.length; i &lt; numChainedTweens; i++) {
+			this._chainedTweens[i].stop();
+		}
+
+	},
+
+	delay: function delay(amount) {
+
+		this._delayTime = amount;
+		return this;
+
+	},
+
+	repeat: function repeat(times) {
+
+		this._repeat = times;
+		return this;
+
+	},
+
+	repeatDelay: function repeatDelay(amount) {
+
+		this._repeatDelayTime = amount;
+		return this;
+
+	},
+
+	yoyo: function yoyo(yoyo) {
+
+		this._yoyo = yoyo;
+		return this;
+
+	},
+
+	easing: function easing(easing) {
+
+		this._easingFunction = easing;
+		return this;
+
+	},
+
+	interpolation: function interpolation(interpolation) {
+
+		this._interpolationFunction = interpolation;
+		return this;
+
+	},
+
+	chain: function chain() {
+
+		this._chainedTweens = arguments;
+		return this;
+
+	},
+
+	onStart: function onStart(callback) {
+
+		this._onStartCallback = callback;
+		return this;
+
+	},
+
+	onUpdate: function onUpdate(callback) {
+
+		this._onUpdateCallback = callback;
+		return this;
+
+	},
+
+	onComplete: function onComplete(callback) {
+
+		this._onCompleteCallback = callback;
+		return this;
+
+	},
+
+	onStop: function onStop(callback) {
+
+		this._onStopCallback = callback;
+		return this;
+
+	},
+
+	update: function update(time) {
+
+		var property;
+		var elapsed;
+		var value;
+
+		if (time &lt; this._startTime) {
+			return true;
+		}
+
+		if (this._onStartCallbackFired === false) {
+
+			if (this._onStartCallback !== null) {
+				this._onStartCallback.call(this._object, this._object);
+			}
+
+			this._onStartCallbackFired = true;
+		}
+
+		elapsed = (time - this._startTime) / this._duration;
+		elapsed = elapsed &gt; 1 ? 1 : elapsed;
+
+		value = this._easingFunction(elapsed);
+
+		for (property in this._valuesEnd) {
+
+			// Don't update properties that do not exist in the source object
+			if (this._valuesStart[property] === undefined) {
+				continue;
+			}
+
+			var start = this._valuesStart[property] || 0;
+			var end = this._valuesEnd[property];
+
+			if (end instanceof Array) {
+
+				this._object[property] = this._interpolationFunction(end, value);
+
+			} else {
+
+				// Parses relative end values with start as base (e.g.: +10, -3)
+				if (typeof (end) === 'string') {
+
+					if (end.charAt(0) === '+' || end.charAt(0) === '-') {
+						end = start + parseFloat(end);
+					} else {
+						end = parseFloat(end);
+					}
+				}
+
+				// Protect against non numeric properties.
+				if (typeof (end) === 'number') {
+					this._object[property] = start + (end - start) * value;
+				}
+
+			}
+
+		}
+
+		if (this._onUpdateCallback !== null) {
+			this._onUpdateCallback.call(this._object, value);
+		}
+
+		if (elapsed === 1) {
+
+			if (this._repeat &gt; 0) {
+
+				if (isFinite(this._repeat)) {
+					this._repeat--;
+				}
+
+				// Reassign starting values, restart by making startTime = now
+				for (property in this._valuesStartRepeat) {
+
+					if (typeof (this._valuesEnd[property]) === 'string') {
+						this._valuesStartRepeat[property] = this._valuesStartRepeat[property] + parseFloat(this._valuesEnd[property]);
+					}
+
+					if (this._yoyo) {
+						var tmp = this._valuesStartRepeat[property];
+
+						this._valuesStartRepeat[property] = this._valuesEnd[property];
+						this._valuesEnd[property] = tmp;
+					}
+
+					this._valuesStart[property] = this._valuesStartRepeat[property];
+
+				}
+
+				if (this._yoyo) {
+					this._reversed = !this._reversed;
+				}
+
+				if (this._repeatDelayTime !== undefined) {
+					this._startTime = time + this._repeatDelayTime;
+				} else {
+					this._startTime = time + this._delayTime;
+				}
+
+				return true;
+
+			} else {
+
+				if (this._onCompleteCallback !== null) {
+
+					this._onCompleteCallback.call(this._object, this._object);
+				}
+
+				for (var i = 0, numChainedTweens = this._chainedTweens.length; i &lt; numChainedTweens; i++) {
+					// Make the chained tweens start exactly at the time they should,
+					// even if the `update()` method was called way past the duration of the tween
+					this._chainedTweens[i].start(this._startTime + this._duration);
+				}
+
+				return false;
+
+			}
+
+		}
+
+		return true;
+
+	}
+});
 
 
+TWEEN.Easing = {
+
+	Linear: {
+
+		None: function (k) {
+
+			return k;
+
+		}
+
+	},
+
+	Quadratic: {
+
+		In: function (k) {
+
+			return k * k;
+
+		},
+
+		Out: function (k) {
+
+			return k * (2 - k);
+
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) &lt; 1) {
+				return 0.5 * k * k;
+			}
+
+			return - 0.5 * (--k * (k - 2) - 1);
+
+		}
+
+	},
+
+	Cubic: {
+
+		In: function (k) {
+
+			return k * k * k;
+
+		},
+
+		Out: function (k) {
+
+			return --k * k * k + 1;
+
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) &lt; 1) {
+				return 0.5 * k * k * k;
+			}
+
+			return 0.5 * ((k -= 2) * k * k + 2);
+
+		}
+
+	},
+
+	Quartic: {
+
+		In: function (k) {
+
+			return k * k * k * k;
+
+		},
+
+		Out: function (k) {
+
+			return 1 - (--k * k * k * k);
+
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) &lt; 1) {
+				return 0.5 * k * k * k * k;
+			}
+
+			return - 0.5 * ((k -= 2) * k * k * k - 2);
+
+		}
+
+	},
+
+	Quintic: {
+
+		In: function (k) {
+
+			return k * k * k * k * k;
+
+		},
+
+		Out: function (k) {
+
+			return --k * k * k * k * k + 1;
+
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) &lt; 1) {
+				return 0.5 * k * k * k * k * k;
+			}
+
+			return 0.5 * ((k -= 2) * k * k * k * k + 2);
+
+		}
+
+	},
+
+	Sinusoidal: {
+
+		In: function (k) {
+
+			return 1 - Math.cos(k * Math.PI / 2);
+
+		},
+
+		Out: function (k) {
+
+			return Math.sin(k * Math.PI / 2);
+
+		},
+
+		InOut: function (k) {
+
+			return 0.5 * (1 - Math.cos(Math.PI * k));
+
+		}
+
+	},
+
+	Exponential: {
+
+		In: function (k) {
+
+			return k === 0 ? 0 : Math.pow(1024, k - 1);
+
+		},
+
+		Out: function (k) {
+
+			return k === 1 ? 1 : 1 - Math.pow(2, - 10 * k);
+
+		},
+
+		InOut: function (k) {
+
+			if (k === 0) {
+				return 0;
+			}
+
+			if (k === 1) {
+				return 1;
+			}
+
+			if ((k *= 2) &lt; 1) {
+				return 0.5 * Math.pow(1024, k - 1);
+			}
+
+			return 0.5 * (- Math.pow(2, - 10 * (k - 1)) + 2);
+
+		}
+
+	},
+
+	Circular: {
+
+		In: function (k) {
+
+			return 1 - Math.sqrt(1 - k * k);
+
+		},
+
+		Out: function (k) {
+
+			return Math.sqrt(1 - (--k * k));
+
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) &lt; 1) {
+				return - 0.5 * (Math.sqrt(1 - k * k) - 1);
+			}
+
+			return 0.5 * (Math.sqrt(1 - (k -= 2) * k) + 1);
+
+		}
+
+	},
+
+	Elastic: {
+
+		In: function (k) {
+
+			if (k === 0) {
+				return 0;
+			}
+
+			if (k === 1) {
+				return 1;
+			}
+
+			return -Math.pow(2, 10 * (k - 1)) * Math.sin((k - 1.1) * 5 * Math.PI);
+
+		},
+
+		Out: function (k) {
+
+			if (k === 0) {
+				return 0;
+			}
+
+			if (k === 1) {
+				return 1;
+			}
+
+			return Math.pow(2, -10 * k) * Math.sin((k - 0.1) * 5 * Math.PI) + 1;
+
+		},
+
+		InOut: function (k) {
+
+			if (k === 0) {
+				return 0;
+			}
+
+			if (k === 1) {
+				return 1;
+			}
+
+			k *= 2;
+
+			if (k &lt; 1) {
+				return -0.5 * Math.pow(2, 10 * (k - 1)) * Math.sin((k - 1.1) * 5 * Math.PI);
+			}
+
+			return 0.5 * Math.pow(2, -10 * (k - 1)) * Math.sin((k - 1.1) * 5 * Math.PI) + 1;
+
+		}
+
+	},
+
+	Back: {
+
+		In: function (k) {
+
+			var s = 1.70158;
+
+			return k * k * ((s + 1) * k - s);
+
+		},
+
+		Out: function (k) {
+
+			var s = 1.70158;
+
+			return --k * k * ((s + 1) * k + s) + 1;
+
+		},
+
+		InOut: function (k) {
+
+			var s = 1.70158 * 1.525;
+
+			if ((k *= 2) &lt; 1) {
+				return 0.5 * (k * k * ((s + 1) * k - s));
+			}
+
+			return 0.5 * ((k -= 2) * k * ((s + 1) * k + s) + 2);
+
+		}
+
+	},
+
+	Bounce: {
+
+		In: function (k) {
+
+			return 1 - TWEEN.Easing.Bounce.Out(1 - k);
+
+		},
+
+		Out: function (k) {
+
+			if (k &lt; (1 / 2.75)) {
+				return 7.5625 * k * k;
+			} else if (k &lt; (2 / 2.75)) {
+				return 7.5625 * (k -= (1.5 / 2.75)) * k + 0.75;
+			} else if (k &lt; (2.5 / 2.75)) {
+				return 7.5625 * (k -= (2.25 / 2.75)) * k + 0.9375;
+			} else {
+				return 7.5625 * (k -= (2.625 / 2.75)) * k + 0.984375;
+			}
+
+		},
+
+		InOut: function (k) {
+
+			if (k &lt; 0.5) {
+				return TWEEN.Easing.Bounce.In(k * 2) * 0.5;
+			}
+
+			return TWEEN.Easing.Bounce.Out(k * 2 - 1) * 0.5 + 0.5;
+
+		}
+
+	}
+
+};
+
+TWEEN.Interpolation = {
+
+	Linear: function (v, k) {
+
+		var m = v.length - 1;
+		var f = m * k;
+		var i = Math.floor(f);
+		var fn = TWEEN.Interpolation.Utils.Linear;
+
+		if (k &lt; 0) {
+			return fn(v[0], v[1], f);
+		}
+
+		if (k &gt; 1) {
+			return fn(v[m], v[m - 1], m - f);
+		}
+
+		return fn(v[i], v[i + 1 &gt; m ? m : i + 1], f - i);
+
+	},
+
+	Bezier: function (v, k) {
+
+		var b = 0;
+		var n = v.length - 1;
+		var pw = Math.pow;
+		var bn = TWEEN.Interpolation.Utils.Bernstein;
+
+		for (var i = 0; i &lt;= n; i++) {
+			b += pw(1 - k, n - i) * pw(k, i) * v[i] * bn(n, i);
+		}
+
+		return b;
+
+	},
+
+	CatmullRom: function (v, k) {
+
+		var m = v.length - 1;
+		var f = m * k;
+		var i = Math.floor(f);
+		var fn = TWEEN.Interpolation.Utils.CatmullRom;
+
+		if (v[0] === v[m]) {
+
+			if (k &lt; 0) {
+				i = Math.floor(f = m * (1 + k));
+			}
+
+			return fn(v[(i - 1 + m) % m], v[i], v[(i + 1) % m], v[(i + 2) % m], f - i);
+
+		} else {
+
+			if (k &lt; 0) {
+				return v[0] - (fn(v[0], v[0], v[1], v[1], -f) - v[0]);
+			}
+
+			if (k &gt; 1) {
+				return v[m] - (fn(v[m], v[m], v[m - 1], v[m - 1], f - m) - v[m]);
+			}
+
+			return fn(v[i ? i - 1 : 0], v[i], v[m &lt; i + 1 ? m : i + 1], v[m &lt; i + 2 ? m : i + 2], f - i);
+
+		}
+
+	},
+
+	Utils: {
+
+		Linear: function (p0, p1, t) {
+
+			return (p1 - p0) * t + p0;
+
+		},
+
+		Bernstein: function (n, i) {
+
+			var fc = TWEEN.Interpolation.Utils.Factorial;
+
+			return fc(n) / fc(i) / fc(n - i);
+
+		},
+
+		Factorial: (function () {
+
+			var a = [1];
+
+			return function (n) {
+
+				var s = 1;
+
+				if (a[n]) {
+					return a[n];
+				}
+
+				for (var i = n; i &gt; 1; i--) {
+					s *= i;
+				}
+
+				a[n] = s;
+				return s;
+
+			};
+
+		})(),
+
+		CatmullRom: function (p0, p1, p2, p3, t) {
+
+			var v0 = (p2 - p0) * 0.5;
+			var v1 = (p3 - p1) * 0.5;
+			var t2 = t * t;
+			var t3 = t * t2;
+
+			return (2 * p1 - 2 * p2 + v0 + v1) * t3 + (- 3 * p1 + 3 * p2 - 2 * v0 - v1) * t2 + v0 * t + p1;
+
+		}
+
+	}
+
+};
+
+// UMD (Universal Module Definition)
+(function (root) {
+
+	if (typeof define === 'function' &amp;&amp; define.amd) {
+
+		// AMD
+		define([], function () {
+			return TWEEN;
+		});
+
+	} else if (typeof module !== 'undefined' &amp;&amp; typeof exports === 'object') {
+
+		// Node.js
+		module.exports = TWEEN;
+
+	} else if (root !== undefined) {
+
+		// Global variable
+		root.TWEEN = TWEEN;
+
+	}
+
+})(this);
+</pre></body></html>_application/javascript    ( F U l ~ � � � �=�                           =�
